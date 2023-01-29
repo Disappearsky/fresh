@@ -2,6 +2,7 @@ package runner
 
 import (
 	"io"
+	"os"
 	"os/exec"
 )
 
@@ -25,8 +26,8 @@ func run() bool {
 		fatal(err)
 	}
 
-	go io.Copy(appLogWriter{}, stderr)
-	go io.Copy(appLogWriter{}, stdout)
+	go io.Copy(os.Stderr, stderr)
+	go io.Copy(os.Stdout, stdout)
 
 	go func() {
 		<-stopChannel
