@@ -21,6 +21,7 @@ var settings = map[string]string{
 	"config_path":       "./runner.conf",
 	"root":              ".",
 	"tmp_path":          "./tmp",
+	"args":              "api",
 	"build_name":        "runner-build",
 	"build_log":         "runner-build-errors.log",
 	"valid_ext":         ".go, .tpl, .tmpl, .html",
@@ -125,6 +126,10 @@ func buildPath() string {
 		p += ".exe"
 	}
 	return p
+}
+
+func args() string {
+	return settings["args"]
 }
 
 func buildErrorsFileName() string {
