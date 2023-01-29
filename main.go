@@ -15,7 +15,7 @@ package main
 import (
 	"flag"
 	"fmt"
-	"fresh/runner"
+	"github.com/Disappearsky/fresh/runner"
 	"os"
 )
 
