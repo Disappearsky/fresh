@@ -12,7 +12,6 @@ import (
 
 var file *os.File
 var once sync.Once
-var fileSig chan struct{}
 
 type logFunc func(string, ...interface{})
 
@@ -48,11 +47,6 @@ func (a appLogWriter) Write(p []byte) (n int, err error) {
 		if err != nil {
 			println(err.Error())
 		}
-
-		go func() {
-			<-fileSig
-			file.Close()
-		}()
 	})
 
 	file.Write(p)

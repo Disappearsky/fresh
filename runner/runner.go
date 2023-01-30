@@ -33,6 +33,7 @@ func run() bool {
 		pid := cmd.Process.Pid
 		runnerLog("Killing PID %d", pid)
 		cmd.Process.Kill()
+		file.Close()
 	}()
 
 	return true

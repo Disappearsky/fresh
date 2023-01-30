@@ -30,9 +30,6 @@ func flushEvents() {
 }
 
 func start() {
-	defer func() {
-		fileSig <- struct{}{}
-	}()
 	loopIndex := 0
 	buildDelay := buildDelay()
 
