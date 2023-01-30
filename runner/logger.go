@@ -11,6 +11,7 @@ import (
 )
 
 var once sync.Once
+var fileSig = make(chan struct{})
 
 type logFunc func(string, ...interface{})
 

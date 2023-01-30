@@ -69,9 +69,9 @@ func start() {
 
 			if !buildFailed {
 				if started {
-					// sleep time for file closing
-					time.Sleep(buildDelay * time.Millisecond)
 					stopChannel <- true
+					// guaranteed to close file and kill processes before app restart
+					<-fileSig
 				}
 				run()
 			}
