@@ -13,7 +13,7 @@ It currently works with [Traffic](https://github.com/pilu/traffic), [Martini](ht
 
 ## Installation
 
-    go get github.com/pilu/fresh
+    go install github.com/Disappearsky/fresh@latest
 
 ## Usage
 
