@@ -49,10 +49,6 @@ func start() {
 			flushEvents()
 
 			mainLog("Started! (%d Goroutines)", runtime.NumGoroutine())
-			//err := removeBuildErrorsLog()
-			//if err != nil {
-			//	mainLog(err.Error())
-			//}
 
 			buildFailed := false
 			if shouldRebuild(eventName) {

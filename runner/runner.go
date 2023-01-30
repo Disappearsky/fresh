@@ -33,6 +33,10 @@ func run() bool {
 		<-stopChannel
 		appLogFile.Close()
 		runnerLog("Close log %s", buildErrorsFilePath())
+		err = removeBuildErrorsLog()
+		if err != nil {
+			runnerLog(err.Error())
+		}
 		pid := cmd.Process.Pid
 		runnerLog("Killing PID %d", pid)
 		cmd.Process.Kill()
