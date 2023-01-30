@@ -31,10 +31,11 @@ func run() bool {
 
 	go func() {
 		<-stopChannel
+		appLog.Close()
+		runnerLog("Close log %s", buildErrorsFilePath())
 		pid := cmd.Process.Pid
 		runnerLog("Killing PID %d", pid)
 		cmd.Process.Kill()
-		appLog.Close()
 	}()
 
 	return true
