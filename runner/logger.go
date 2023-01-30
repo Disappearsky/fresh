@@ -15,7 +15,7 @@ func init() {
 	var err error
 	file, err = os.OpenFile(buildErrorsFilePath(), os.O_CREATE|os.O_WRONLY, 0666)
 	if err != nil {
-		appLog(err.Error())
+		println(err.Error())
 	}
 }
 
