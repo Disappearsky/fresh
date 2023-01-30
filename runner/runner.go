@@ -7,6 +7,7 @@ import (
 
 func run() bool {
 	runnerLog("Running...")
+	appLog := newAppLog(buildErrorsFilePath())
 
 	cmd := exec.Command(buildPath(), args())
 
@@ -25,15 +26,15 @@ func run() bool {
 		fatal(err)
 	}
 
-	go io.Copy(appLogWriter{}, stderr)
-	go io.Copy(appLogWriter{}, stdout)
+	go io.Copy(appLog, stderr)
+	go io.Copy(appLog, stdout)
 
 	go func() {
 		<-stopChannel
 		pid := cmd.Process.Pid
 		runnerLog("Killing PID %d", pid)
 		cmd.Process.Kill()
-		file.Close()
+		appLog.Close()
 	}()
 
 	return true

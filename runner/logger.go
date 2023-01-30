@@ -10,7 +10,6 @@ import (
 	"github.com/mattn/go-colorable"
 )
 
-var file *os.File
 var once sync.Once
 
 type logFunc func(string, ...interface{})
@@ -37,19 +36,26 @@ func fatal(err error) {
 	logger.Fatal(err)
 }
 
-type appLogWriter struct{}
+type appLogWriter struct {
+	logFile *os.File
+}
+
+func newAppLog(path string) *appLogWriter {
+	file, err := os.OpenFile(path, os.O_CREATE|os.O_WRONLY, 0666)
+	if err != nil {
+		appLog(err.Error())
+	}
+	return &appLogWriter{
+		logFile: file,
+	}
+}
 
 func (a appLogWriter) Write(p []byte) (n int, err error) {
-	// write log to local text
-	once.Do(func() {
-		var err error
-		file, err = os.OpenFile(buildErrorsFilePath(), os.O_CREATE|os.O_WRONLY, 0666)
-		if err != nil {
-			println(err.Error())
-		}
-	})
-
-	file.Write(p)
+	a.logFile.Write(p)
 
 	return len(p), nil
+}
+
+func (a *appLogWriter) Close() error {
+	return a.logFile.Close()
 }
